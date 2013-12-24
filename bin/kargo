@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'kargo'
+
+Kargo::Core.new.update!
+
+# require 'pathname'
+# require 'uri'
+# 
+# def download_git!(url, path, opts)
+#   # check up_to_date
+#   puts "download #{url} -> #{path}"
+#   path.mkpath
+#   system 'git', 'clone', url.to_s, path.to_s
+# end
+# 
+# File.open 'Kargofile' do |io|
+#   io.each_line do |line|
+#     path, url, opts = line.chomp.split(/\s+/)
+#     path = Pathname.new(path)
+#     url  = URI.parse(url)
+# 
+#     case url.scheme
+#     when 'git'
+#       download_git!(url, path, opts)
+#     else
+#       raise "Unknown protocol: #{url.scheme}"
+#     end
+#   end
+# end
