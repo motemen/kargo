@@ -10,7 +10,8 @@ Tiny download manager; no packages, no dependency resolving. Keep your project's
 
 ```
 % cat Kargofile
-components/bootstrap    git://github.com/twbs/bootstrap
+components/bootstrap     git://github.com/twbs/bootstrap
+components/font-awesome  zip:http://fontawesome.io/assets/font-awesome-4.0.3.zip#font-awesome-4.0.3
 ```
 
 ```
@@ -18,6 +19,8 @@ components/bootstrap    git://github.com/twbs/bootstrap
 download components/bootstrap (git://github.com/twbs/bootstrap)
 Cloning into 'components/bootstrap'...
 ...
+download components/font-awesome (zip:http://fontawesome.io/assets/font-awesome-4.0.3.zip#font-awesome-4.0.3)
+######################################################################## 100.0%
 ```
 
 ## Contributing
