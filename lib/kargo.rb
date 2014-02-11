@@ -38,10 +38,16 @@ module Kargo
       raise 'Not implemented'
     end
 
+    def prepare_download_path_for(url)
+      path = Pathname.new(ENV['HOME']) + '.kargo'
+      path.mkpath
+      path + url.gsub(/[^A-Za-z0-9_.-]/, '_')
+    end
+
     def download_file(url, &block)
-      tmpfile = Tempfile.new('kargo')
-      system 'curl', '-#', '-L', url, '-o', tmpfile.path or raise $!
-      yield tmpfile
+      path = prepare_download_path_for(url)
+      system 'curl', '-#', '-L', url, '-o', path.to_s or raise $!
+      yield path
     end
 
     def to_s
@@ -57,9 +63,10 @@ module Kargo
 
     class Zip < Item
       def download!
-        download_file url.to_s.sub(/^zip:/, '') do |tmpfile|
+        path.mkpath
+        download_file url.to_s.sub(/^zip:/, '') do |downloaded_path|
           Dir.mktmpdir do |extract_dir|
-            Archive::Zip.extract(tmpfile.path, extract_dir)
+            Archive::Zip.extract(downloaded_path.to_s, extract_dir)
             FileUtils.cp_r Pathname.new(extract_dir).join(*url.fragment), path
           end
         end
